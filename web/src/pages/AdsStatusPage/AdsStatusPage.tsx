@@ -249,7 +249,7 @@ const AdsStatusPage = () => {
 
     return (
       <div className="flex min-h-screen justify-center bg-black">
-        <div className="mat-unroll relative flex h-screen w-full max-w-[480px] flex-col bg-black">
+        <div className="relative flex h-screen w-full max-w-[480px] flex-col bg-black">
           <div className="absolute left-2 right-2 top-2 z-50 flex gap-1">
             {brandStories.map((s, idx) => (
               <div
