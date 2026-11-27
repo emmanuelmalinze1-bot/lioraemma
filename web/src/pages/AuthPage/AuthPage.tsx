@@ -108,7 +108,7 @@ const AuthPage = () => {
 
   return (
     <div className="bg-crosshatch flex min-h-screen flex-col">
-      <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5">
+      <header className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
         <Logo />
         <Link
           to="/"
@@ -119,8 +119,8 @@ const AuthPage = () => {
         </Link>
       </header>
 
-      <main className="flex flex-1 items-center justify-center px-4 py-12">
-        <div className="w-full max-w-[460px] rounded-[24px] border border-[#2D2735] bg-[#0E0B12] p-8 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+      <main className="flex flex-1 items-center justify-center px-3 py-8 sm:px-4 sm:py-12">
+        <div className="w-full max-w-[460px] rounded-[24px] border border-[#2D2735] bg-[#0E0B12] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.6)] sm:p-8">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>
               <h1 className="text-[22px] font-bold tracking-tight">

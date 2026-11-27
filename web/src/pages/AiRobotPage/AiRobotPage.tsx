@@ -24,7 +24,15 @@ import {
 import { Link } from '@redwoodjs/router'
 
 import ActivateAccountModal from 'src/components/ActivateAccountModal/ActivateAccountModal'
-import { getUserInitials, loadAppState } from 'src/lib/appState'
+import {
+  formatDividendDate,
+  getDividendStatus,
+  getNextDividendDate,
+  getUserInitials,
+  loadAppState,
+  saveAppState,
+  WEEKLY_DIVIDEND_AMOUNT,
+} from 'src/lib/appState'
 
 const goldButton =
   'border border-[#A67C1D] bg-gradient-to-b from-[#FDE18B] via-[#E8B94A] to-[#C8961D] text-black shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)] transition-all hover:brightness-105 active:scale-[0.98]'
@@ -305,7 +313,23 @@ const PointingHand = () => (
 )
 
 const AiRobotPage = () => {
-  const [appState] = useState(() => loadAppState())
+  const [appState, setAppState] = useState(() => loadAppState())
+  const { claimable: dividendClaimable, maturesAt: dividendMaturesAt } =
+    getDividendStatus(appState.dividendClaimedAt)
+  const nextDividendDate = formatDividendDate(
+    dividendMaturesAt ?? getNextDividendDate()
+  )
+
+  const handleDividendClaim = () => {
+    if (!dividendClaimable) return
+    const next = {
+      ...appState,
+      balance: appState.balance + WEEKLY_DIVIDEND_AMOUNT,
+      dividendClaimedAt: Date.now(),
+    }
+    saveAppState(next)
+    setAppState(next)
+  }
   const [activeTab, setActiveTab] = useState<
     'markets' | 'positions' | 'history'
   >('markets')
@@ -365,7 +389,7 @@ const AiRobotPage = () => {
 
   return (
     <div className="flex min-h-screen justify-center bg-[#070a10]">
-      <div className="bg-crosshatch relative flex min-h-screen w-full max-w-[420px] flex-col overflow-x-hidden pb-28">
+      <div className="bg-crosshatch relative flex min-h-screen w-full max-w-[480px] flex-col overflow-x-hidden pb-28">
         {view === 'dashboard' ? (
           <>
             <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#1c2230] bg-[#0b0d14]/95 px-4 py-3 backdrop-blur-md">
@@ -405,18 +429,29 @@ const AiRobotPage = () => {
                   </div>
                   <div>
                     <div className="text-[11px] font-semibold leading-tight text-white">
-                      Your Next Weekly Dividends will be Available
+                      {dividendClaimable
+                        ? 'Take Weekly Dividends'
+                        : 'Your Next Weekly Dividends will be Available'}
                     </div>
                     <div className="mt-0.5 text-[10px] text-[#838b9e]">
-                      Matures Dec 3, 2026
+                      {dividendClaimable
+                        ? `Weekly partner distribution · ₦${WEEKLY_DIVIDEND_AMOUNT.toLocaleString()}`
+                        : `Matures ${nextDividendDate}`}
                     </div>
                   </div>
                 </div>
                 <button
                   type="button"
-                  className="ml-2 shrink-0 rounded-lg border border-white/5 bg-[#232634] px-2.5 py-1.5 text-[10px] font-semibold text-gray-400"
+                  onClick={handleDividendClaim}
+                  className={
+                    dividendClaimable
+                      ? 'ml-2 shrink-0 rounded-lg border border-[#A67C1D] bg-gradient-to-b from-[#FDE18B] via-[#E8B94A] to-[#C8961D] px-3 py-1.5 text-[10px] font-bold text-black transition hover:brightness-110 active:scale-95'
+                      : 'ml-2 shrink-0 rounded-lg border border-white/5 bg-[#232634] px-2.5 py-1.5 text-[10px] font-semibold text-gray-400'
+                  }
                 >
-                  Dec 3, 2026
+                  {dividendClaimable
+                    ? `Claim ₦${WEEKLY_DIVIDEND_AMOUNT.toLocaleString()}`
+                    : nextDividendDate}
                 </button>
               </div>
 
@@ -645,7 +680,7 @@ const AiRobotPage = () => {
           </>
         )}
 
-        <nav className="fixed bottom-5 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[388px] -translate-x-1/2 rounded-full border border-[#2d2238] bg-[#120f19]/95 px-6 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.75)] backdrop-blur-lg">
+        <nav className="fixed bottom-5 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[448px] -translate-x-1/2 rounded-full border border-[#2d2238] bg-[#120f19]/95 px-6 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.75)] backdrop-blur-lg">
           <div className="relative flex items-center justify-between">
             <Link
               to="/ai-robot"

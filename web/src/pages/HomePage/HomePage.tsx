@@ -22,7 +22,15 @@ import {
 import { Link } from '@redwoodjs/router'
 
 import ActivateAccountModal from 'src/components/ActivateAccountModal/ActivateAccountModal'
-import { getUserInitials, loadAppState, saveAppState } from 'src/lib/appState'
+import {
+  formatDividendDate,
+  getDividendStatus,
+  getNextDividendDate,
+  getUserInitials,
+  loadAppState,
+  saveAppState,
+  WEEKLY_DIVIDEND_AMOUNT,
+} from 'src/lib/appState'
 
 const COMMUNITY_URL = 'https://t.me/+wsblDPJfpBxlMzI0'
 const CLAIM_SOUND = '/universfield-new-notification-064-494547.mp3'
@@ -244,6 +252,11 @@ const HomePage = () => {
   const [isClaiming, setIsClaiming] = useState(false)
   const [appState, setAppState] = useState(() => loadAppState())
   const { user, balance, todayEarnings, completedTasks } = appState
+  const { claimable: dividendClaimable, maturesAt: dividendMaturesAt } =
+    getDividendStatus(appState.dividendClaimedAt)
+  const nextDividendDate = formatDividendDate(
+    dividendMaturesAt ?? getNextDividendDate()
+  )
   const [, setLimitReached] = useState(false)
   const [lastClaim, setLastClaim] = useState<{
     taskId: string
@@ -343,7 +356,23 @@ const HomePage = () => {
 
   const handleClaim = () => {
     playClaimSound()
-    showToast('Weekly dividends mature on Dec 3, 2026')
+    if (dividendClaimable) {
+      const claimedAt = Date.now()
+      const next = {
+        ...appState,
+        balance: appState.balance + WEEKLY_DIVIDEND_AMOUNT,
+        dividendClaimedAt: claimedAt,
+      }
+      saveAppState(next)
+      setAppState(next)
+      showToast(
+        `₦${WEEKLY_DIVIDEND_AMOUNT.toLocaleString()} weekly dividends claimed. Next payout matures ${formatDividendDate(
+          getNextDividendDate(new Date(claimedAt))
+        )}`
+      )
+      return
+    }
+    showToast(`Weekly dividends mature on ${nextDividendDate}`)
   }
 
   const activeTask = TASKS.find((t) => t.id === activeTaskId) || null
@@ -398,7 +427,7 @@ const HomePage = () => {
 
   return (
     <div className="flex min-h-screen justify-center bg-[#050608]">
-      <div className="bg-crosshatch relative flex min-h-screen w-full max-w-[420px] flex-col bg-[#0b0d14] pb-28 shadow-[0_0_60px_rgba(0,0,0,0.85)]">
+      <div className="bg-crosshatch relative flex min-h-screen w-full max-w-[480px] flex-col bg-[#0b0d14] pb-28 shadow-[0_0_60px_rgba(0,0,0,0.85)]">
         <header className="sticky top-0 z-40 flex items-center justify-between border-b border-white/5 bg-[#0b0d14]/95 px-4 py-3 backdrop-blur-md">
           <div className="flex items-center gap-1">
             <Link
@@ -445,19 +474,29 @@ const HomePage = () => {
               </span>
               <div className="min-w-0">
                 <p className="text-[11px] font-semibold leading-tight text-white">
-                  Your Next Weekly Dividends will be Available...
+                  {dividendClaimable
+                    ? 'Take Weekly Dividends'
+                    : 'Your Next Weekly Dividends will be Available...'}
                 </p>
                 <p className="mt-0.5 text-[10px] text-[#838b9e]">
-                  Matures Dec 3, 2026
+                  {dividendClaimable
+                    ? `Weekly partner distribution · ₦${WEEKLY_DIVIDEND_AMOUNT.toLocaleString()}`
+                    : `Matures ${nextDividendDate}`}
                 </p>
               </div>
             </div>
             <button
               type="button"
               onClick={handleClaim}
-              className="shrink-0 whitespace-nowrap rounded-md border border-white/5 bg-[#232634] px-2.5 py-1 text-[10px] font-semibold text-gray-400 transition hover:text-white"
+              className={
+                dividendClaimable
+                  ? 'shrink-0 whitespace-nowrap rounded-md border border-[#A67C1D] bg-gradient-to-b from-[#FDE18B] via-[#E8B94A] to-[#C8961D] px-3 py-1 text-[10px] font-bold text-black transition hover:brightness-110 active:scale-95'
+                  : 'shrink-0 whitespace-nowrap rounded-md border border-white/5 bg-[#232634] px-2.5 py-1 text-[10px] font-semibold text-gray-400 transition hover:text-white'
+              }
             >
-              Dec 3, 2026
+              {dividendClaimable
+                ? `Claim ₦${WEEKLY_DIVIDEND_AMOUNT.toLocaleString()}`
+                : nextDividendDate}
             </button>
           </section>
 
@@ -782,7 +821,7 @@ const HomePage = () => {
           </section>
         </main>
 
-        <nav className="fixed bottom-5 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[388px] -translate-x-1/2 rounded-full border border-[#2d2238] bg-[#120f19]/95 px-6 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.75)] backdrop-blur-lg">
+        <nav className="fixed bottom-5 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[448px] -translate-x-1/2 rounded-full border border-[#2d2238] bg-[#120f19]/95 px-6 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.75)] backdrop-blur-lg">
           <div className="relative flex items-center justify-between">
             <Link
               to="/ai-robot"

@@ -11,10 +11,12 @@ export type AppState = {
   completedTasks: string[]
   adsClaimed: Record<string, boolean>
   adsTodayEarned: number
+  dividendClaimedAt: number | null
 }
 
-const KEY = 'liora_app_state'
 const ACCOUNTS_KEY = 'liora_accounts'
+const STATES_KEY = 'liora_account_states'
+const SESSION_KEY = 'liora_session_email'
 
 export type StoredAccount = AppUser & {
   passwordHash: string
@@ -28,23 +30,74 @@ export const DEFAULT_APP_STATE: AppState = {
   completedTasks: [],
   adsClaimed: {},
   adsTodayEarned: 0,
+  dividendClaimedAt: null,
+}
+
+const normalizeEmail = (email: string) => email.trim().toLowerCase()
+
+const loadAccountStates = (): Record<string, AppState> => {
+  if (typeof window === 'undefined') return {}
+  try {
+    const raw = window.localStorage.getItem(STATES_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw)
+    return parsed && typeof parsed === 'object'
+      ? (parsed as Record<string, AppState>)
+      : {}
+  } catch {
+    return {}
+  }
+}
+
+const saveAccountStates = (states: Record<string, AppState>) => {
+  if (typeof window === 'undefined') return
+  window.localStorage.setItem(STATES_KEY, JSON.stringify(states))
+}
+
+const readSessionEmail = (): string | null => {
+  if (typeof window === 'undefined') return null
+  return window.localStorage.getItem(SESSION_KEY)
+}
+
+const writeSessionEmail = (email: string | null) => {
+  if (typeof window === 'undefined') return
+  if (email) {
+    window.localStorage.setItem(SESSION_KEY, normalizeEmail(email))
+    return
+  }
+  window.localStorage.removeItem(SESSION_KEY)
 }
 
 export const loadAppState = (): AppState => {
   if (typeof window === 'undefined') return DEFAULT_APP_STATE
-  try {
-    const raw = window.localStorage.getItem(KEY)
-    if (!raw) return DEFAULT_APP_STATE
-    const parsed = JSON.parse(raw) as Partial<AppState>
-    return { ...DEFAULT_APP_STATE, ...parsed }
-  } catch {
-    return DEFAULT_APP_STATE
+  const sessionEmail = readSessionEmail()
+  if (!sessionEmail) return DEFAULT_APP_STATE
+
+  const account = loadAccounts().find(
+    (a) => normalizeEmail(a.email) === sessionEmail
+  )
+  if (!account) return DEFAULT_APP_STATE
+
+  const user: AppUser = {
+    fullName: account.fullName,
+    username: account.username,
+    email: account.email,
   }
+  const stored = loadAccountStates()[sessionEmail]
+  return { ...DEFAULT_APP_STATE, ...(stored ?? {}), user }
 }
 
 export const saveAppState = (state: AppState) => {
   if (typeof window === 'undefined') return
-  window.localStorage.setItem(KEY, JSON.stringify(state))
+  if (!state.user) {
+    writeSessionEmail(null)
+    return
+  }
+  const email = normalizeEmail(state.user.email)
+  writeSessionEmail(email)
+  const states = loadAccountStates()
+  states[email] = { ...state, user: state.user }
+  saveAccountStates(states)
 }
 
 export const patchAppState = (patch: Partial<AppState>): AppState => {
@@ -149,7 +202,7 @@ export const registerAccount = async (input: {
   saveAccounts([...accounts, account])
 
   const user: AppUser = { fullName, username, email }
-  patchAppState({ user })
+  saveAppState({ ...DEFAULT_APP_STATE, user })
   return { ok: true, user }
 }
 
@@ -180,10 +233,37 @@ export const loginAccount = async (
     username: account.username,
     email: account.email,
   }
-  patchAppState({ user })
+  const stored = loadAccountStates()[normalizeEmail(user.email)]
+  saveAppState({ ...DEFAULT_APP_STATE, ...(stored ?? {}), user })
   return { ok: true, user }
 }
 
 export const signOut = () => {
-  patchAppState({ user: null })
+  writeSessionEmail(null)
+}
+
+const WEEKLY_DIVIDEND_DAY = 4
+export const WEEKLY_DIVIDEND_AMOUNT = 2500
+
+export const getNextDividendDate = (from: Date = new Date()) => {
+  const next = new Date(from)
+  const currentDay = next.getDay()
+  let daysUntil = (WEEKLY_DIVIDEND_DAY - currentDay + 7) % 7
+  if (daysUntil === 0) daysUntil = 7
+  next.setDate(next.getDate() + daysUntil)
+  next.setHours(0, 0, 0, 0)
+  return next
+}
+
+export const formatDividendDate = (date: Date) =>
+  date.toLocaleDateString('en-US', {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  })
+
+export const getDividendStatus = (claimedAt: number | null) => {
+  if (!claimedAt) return { claimable: true, maturesAt: null }
+  const maturesAt = getNextDividendDate(new Date(claimedAt))
+  return { claimable: Date.now() >= maturesAt.getTime(), maturesAt }
 }

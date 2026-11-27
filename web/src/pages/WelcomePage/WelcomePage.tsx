@@ -140,7 +140,7 @@ const WelcomePage = () => {
   return (
     <div className="bg-crosshatch min-h-screen">
       <header className="sticky top-0 z-30 border-b border-white/5 bg-ink/80 backdrop-blur">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 sm:py-4">
           <Logo />
           <div className="hidden items-center gap-8 text-sm font-medium text-muted lg:flex">
             {NAV_LINKS.map((link) => (
@@ -170,8 +170,8 @@ const WelcomePage = () => {
         </nav>
       </header>
 
-      <section className="mx-auto max-w-7xl px-6 pb-20 pt-16 text-center">
-        <div className="mb-10 flex justify-center">
+      <section className="mx-auto max-w-7xl px-4 pb-12 pt-8 text-center sm:px-6 sm:pb-20 sm:pt-14">
+        <div className="mb-5 flex justify-center sm:mb-9">
           <PuzzleCube />
         </div>
         <a
@@ -182,7 +182,7 @@ const WelcomePage = () => {
           What&apos;s new at Liora Network
           <ChevronRight className="h-4 w-4" />
         </a>
-        <h1 className="mx-auto mt-8 max-w-4xl font-serif text-5xl font-bold leading-[1.05] tracking-tight md:text-7xl">
+        <h1 className="mx-auto mt-5 max-w-4xl font-serif text-[40px] font-bold leading-[1.05] tracking-tight sm:mt-8 sm:text-5xl md:text-7xl">
           <span className="bg-gradient-to-b from-[#F8E5B5] to-[#D4A73E] bg-clip-text text-transparent">
             Rewards for
           </span>{' '}
@@ -191,12 +191,12 @@ const WelcomePage = () => {
             modern earners
           </span>
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
+        <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-muted sm:mt-6 md:text-lg">
           The best way to earn from everyday brands instead of idle scrolling.
           Recommend products, automate AI trades, and claim Ads Status payouts
           at scale.
         </p>
-        <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row sm:gap-4">
           <Link
             to={routes.auth()}
             className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-[#A67C1D] bg-gradient-to-b from-[#FDE18B] via-[#E8B94A] to-[#C8961D] px-12 py-4 text-[17px] font-bold text-black shadow-[inset_0_2px_2px_rgba(255,255,255,0.7),inset_0_-2px_2px_rgba(0,0,0,0.2),0_6px_12px_rgba(0,0,0,0.4)] transition-all hover:brightness-105 active:scale-[0.98] sm:w-auto"
@@ -213,16 +213,16 @@ const WelcomePage = () => {
         </div>
       </section>
 
-      <section id="channels" className="mx-auto max-w-6xl px-6">
+      <section id="channels" className="mx-auto max-w-6xl px-4 sm:px-6">
         <p className="mx-auto max-w-2xl text-center text-sm text-muted md:text-base">
           Leading Nigerian consumer brands and payout rails power Liora member
           rewards daily.
         </p>
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="mt-6 grid grid-cols-2 gap-3 sm:mt-8 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {BRANDS.map((brand) => (
             <div
               key={brand.name}
-              className="rounded-xl border border-white/5 bg-white/[0.02] px-5 py-4"
+              className="rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3.5 sm:px-5 sm:py-4"
             >
               <p className="text-sm font-semibold text-white/90">
                 {brand.name}
@@ -233,7 +233,7 @@ const WelcomePage = () => {
         </div>
       </section>
 
-      <section className="mx-auto mt-24 max-w-7xl px-6">
+      <section className="mx-auto mt-16 max-w-7xl px-4 sm:mt-24 sm:px-6">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-serif text-3xl font-bold md:text-4xl">
             Built for focus, speed, and payout reliability
@@ -243,8 +243,8 @@ const WelcomePage = () => {
             workspace.
           </p>
         </div>
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          <div className="rounded-3xl border border-white/10 bg-ink-card p-8">
+        <div className="mt-8 grid gap-4 sm:mt-12 sm:gap-6 md:grid-cols-3">
+          <div className="rounded-3xl border border-white/10 bg-ink-card p-5 sm:p-8">
             <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-gold/30 bg-gold/10 text-gold">
               <ShoppingBag className="h-6 w-6" />
             </div>
@@ -273,7 +273,7 @@ const WelcomePage = () => {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-ink-card p-8">
+          <div className="rounded-3xl border border-white/10 bg-ink-card p-5 sm:p-8">
             <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-gold/30 bg-gold/10 text-gold">
               <Bot className="h-6 w-6" />
             </div>
@@ -305,7 +305,7 @@ const WelcomePage = () => {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-white/10 bg-ink-card p-8">
+          <div className="rounded-3xl border border-white/10 bg-ink-card p-5 sm:p-8">
             <div className="mb-6 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-gold/30 bg-gold/10 text-gold">
               <BarChart3 className="h-6 w-6" />
             </div>
@@ -338,7 +338,10 @@ const WelcomePage = () => {
         </div>
       </section>
 
-      <section id="markets" className="mx-auto mt-24 max-w-7xl px-6">
+      <section
+        id="markets"
+        className="mx-auto mt-16 max-w-7xl px-4 sm:mt-24 sm:px-6"
+      >
         <div className="mx-auto max-w-2xl text-center">
           <p className="text-xs uppercase tracking-[0.3em] text-gold">
             3 Synthetic Indices
@@ -351,7 +354,7 @@ const WelcomePage = () => {
             before entering the live desk.
           </p>
         </div>
-        <div className="mt-10 grid gap-3 md:grid-cols-3">
+        <div className="mt-6 grid gap-3 sm:mt-10 md:grid-cols-3">
           {MARKETS.map((item, index) => (
             <button
               key={item.id}
@@ -375,7 +378,7 @@ const WelcomePage = () => {
             </button>
           ))}
         </div>
-        <div className="mt-6 rounded-3xl border border-white/10 bg-ink-card p-6 md:p-8">
+        <div className="mt-5 rounded-3xl border border-white/10 bg-ink-card p-4 sm:mt-6 sm:p-6 md:p-8">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <div>
               <h3 className="font-serif text-2xl font-semibold">
@@ -394,8 +397,11 @@ const WelcomePage = () => {
         </div>
       </section>
 
-      <section id="calculator" className="mx-auto mt-24 max-w-7xl px-6">
-        <div className="rounded-3xl border border-white/10 bg-ink-card p-8 md:p-12">
+      <section
+        id="calculator"
+        className="mx-auto mt-16 max-w-7xl px-4 sm:mt-24 sm:px-6"
+      >
+        <div className="rounded-3xl border border-white/10 bg-ink-card p-5 sm:p-8 md:p-12">
           <div className="mx-auto max-w-2xl text-center">
             <p className="text-xs uppercase tracking-[0.3em] text-gold">
               Earnings Projection
@@ -448,8 +454,8 @@ const WelcomePage = () => {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            <div className="rounded-2xl border border-white/10 bg-ink-panel p-6 text-center">
+          <div className="mt-8 grid gap-3 sm:mt-10 sm:grid-cols-3 sm:gap-4">
+            <div className="rounded-2xl border border-white/10 bg-ink-panel p-4 text-center sm:p-6">
               <p className="text-xs uppercase tracking-[0.2em] text-muted">
                 Estimated Daily Total
               </p>
@@ -457,7 +463,7 @@ const WelcomePage = () => {
                 ₦{daily.toLocaleString()}
               </p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-ink-panel p-6 text-center">
+            <div className="rounded-2xl border border-white/10 bg-ink-panel p-4 text-center sm:p-6">
               <p className="text-xs uppercase tracking-[0.2em] text-muted">
                 7-Day Projection
               </p>
@@ -465,7 +471,7 @@ const WelcomePage = () => {
                 ₦{weekly.toLocaleString()}
               </p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-ink-panel p-6 text-center">
+            <div className="rounded-2xl border border-white/10 bg-ink-panel p-4 text-center sm:p-6">
               <p className="text-xs uppercase tracking-[0.2em] text-muted">
                 30-Day Projection
               </p>
@@ -487,7 +493,10 @@ const WelcomePage = () => {
         </div>
       </section>
 
-      <section id="payouts" className="mx-auto mt-24 max-w-7xl px-6">
+      <section
+        id="payouts"
+        className="mx-auto mt-16 max-w-7xl px-4 sm:mt-24 sm:px-6"
+      >
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="font-serif text-3xl font-bold md:text-4xl">
             Direct NIBSS Settlement Rails
@@ -524,8 +533,8 @@ const WelcomePage = () => {
         </div>
       </section>
 
-      <section className="mx-auto mt-24 max-w-5xl px-6">
-        <div className="rounded-3xl border border-white/10 bg-ink-card p-8 md:p-12">
+      <section className="mx-auto mt-16 max-w-5xl px-4 sm:mt-24 sm:px-6">
+        <div className="rounded-3xl border border-white/10 bg-ink-card p-5 sm:p-8 md:p-12">
           <div className="flex items-center gap-3">
             <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-gold/30 bg-gold/10 text-gold">
               <ShieldCheck className="h-6 w-6" />
@@ -575,7 +584,10 @@ const WelcomePage = () => {
         </div>
       </section>
 
-      <section id="faq" className="mx-auto mt-24 max-w-3xl px-6">
+      <section
+        id="faq"
+        className="mx-auto mt-16 max-w-3xl px-4 sm:mt-24 sm:px-6"
+      >
         <h2 className="text-center font-serif text-3xl font-bold md:text-4xl">
           Frequently Asked Questions
         </h2>
@@ -590,7 +602,7 @@ const WelcomePage = () => {
                 <button
                   type="button"
                   onClick={() => setOpenFaq(isOpen ? null : index)}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                  className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left sm:px-6 sm:py-5"
                 >
                   <span className="text-sm font-semibold text-white">
                     {faq.q}
@@ -602,7 +614,7 @@ const WelcomePage = () => {
                   )}
                 </button>
                 {isOpen && (
-                  <p className="px-6 pb-5 text-sm leading-relaxed text-muted">
+                  <p className="px-4 pb-4 text-sm leading-relaxed text-muted sm:px-6 sm:pb-5">
                     {faq.a}
                   </p>
                 )}
@@ -612,8 +624,8 @@ const WelcomePage = () => {
         </div>
       </section>
 
-      <footer className="mt-24 border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-6 py-10">
+      <footer className="mt-16 border-t border-white/5 sm:mt-24">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10">
           <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
             <div>
               <Logo />

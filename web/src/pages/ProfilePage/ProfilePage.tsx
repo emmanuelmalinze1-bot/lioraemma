@@ -25,7 +25,7 @@ const ProfilePage = () => {
 
   return (
     <div className="flex min-h-screen justify-center bg-[#050608]">
-      <div className="bg-crosshatch flex min-h-screen w-full max-w-[420px] flex-col bg-[#0b0d14] pb-10">
+      <div className="bg-crosshatch flex min-h-screen w-full max-w-[480px] flex-col bg-[#0b0d14] pb-10">
         <header className="sticky top-0 z-40 flex items-center justify-between border-b border-white/5 bg-[#0b0d14]/95 px-4 py-3 backdrop-blur-md">
           <button
             type="button"

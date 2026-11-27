@@ -245,7 +245,7 @@ const AdsStatusPage = () => {
 
     return (
       <div className="flex min-h-screen justify-center bg-black">
-        <div className="relative flex h-screen w-full max-w-[420px] flex-col bg-black">
+        <div className="relative flex h-screen w-full max-w-[480px] flex-col bg-black">
           <div className="absolute left-2 right-2 top-2 z-50 flex gap-1">
             {brandStories.map((s, idx) => (
               <div
@@ -424,7 +424,7 @@ const AdsStatusPage = () => {
 
   return (
     <div className="flex min-h-screen justify-center bg-[#050608]">
-      <div className="bg-crosshatch relative flex min-h-screen w-full max-w-[420px] flex-col bg-[#0b0d14] pb-28">
+      <div className="bg-crosshatch relative flex min-h-screen w-full max-w-[480px] flex-col bg-[#0b0d14] pb-28">
         <header className="sticky top-0 z-40 flex items-center justify-between border-b border-white/5 bg-[#0b0d14]/95 px-4 py-3 backdrop-blur-md">
           <div className="flex items-center gap-1">
             <Link
@@ -584,7 +584,7 @@ const AdsStatusPage = () => {
           </section>
         </main>
 
-        <nav className="fixed bottom-5 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[388px] -translate-x-1/2 rounded-full border border-[#2d2238] bg-[#120f19]/95 px-6 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.75)] backdrop-blur-lg">
+        <nav className="fixed bottom-5 left-1/2 z-50 w-[calc(100%-2rem)] max-w-[448px] -translate-x-1/2 rounded-full border border-[#2d2238] bg-[#120f19]/95 px-6 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.75)] backdrop-blur-lg">
           <div className="relative flex items-center justify-between">
             <Link
               to="/ai-robot"
