@@ -207,7 +207,6 @@
 @keyframes mat-unroll {
   0% {
     clip-path: inset(0 0 100% 0);
-    transform: perspective(1400px) rotateX(-28deg) scaleY(0.96);
     opacity: 0.65;
   }
   60% {
@@ -216,13 +215,11 @@
   }
   100% {
     clip-path: none;
-    transform: none;
     opacity: 1;
   }
 }
 
 .mat-unroll {
-  transform-origin: 50% 0%;
   animation: mat-unroll 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
