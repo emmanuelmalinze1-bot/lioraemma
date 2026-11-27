@@ -390,7 +390,7 @@ const AiRobotPage = () => {
   return (
     <div className="flex min-h-screen justify-center bg-[#070a10]">
       <div className="mat-roll-edge" aria-hidden />
-      <div className="mat-unroll bg-crosshatch relative flex min-h-screen w-full max-w-[480px] flex-col overflow-x-hidden pb-28">
+      <div className="bg-crosshatch relative flex min-h-screen w-full max-w-[480px] flex-col overflow-x-hidden pb-28">
         {view === 'dashboard' ? (
           <>
             <header className="sticky top-0 z-40 flex items-center justify-between border-b border-[#1c2230] bg-[#0b0d14]/95 px-4 py-3 backdrop-blur-md">
@@ -422,7 +422,7 @@ const AiRobotPage = () => {
               </div>
             </header>
 
-            <main className="flex-1 space-y-4 px-4 pt-4">
+            <main className="mat-unroll flex-1 space-y-4 px-4 pt-4">
               <div
                 className="flex items-center justify-between rounded-xl border border-[#232634] bg-[#161922] p-3"
                 style={{ borderColor: '#232634', backgroundColor: '#161922' }}
@@ -675,7 +675,7 @@ const AiRobotPage = () => {
               </div>
             </header>
 
-            <main className="flex-1 px-4 pt-4">
+            <main className="mat-unroll flex-1 px-4 pt-4">
               <LiveChart market={selectedMarket} onPrice={setLivePrice} />
               <div className="mt-6">
                 <button
