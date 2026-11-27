@@ -467,10 +467,7 @@ const HomePage = () => {
         </header>
 
         <main className="flex-1 space-y-4 px-4 pt-4">
-          <section
-            className="flex items-center justify-between gap-2 rounded-xl border border-[#232634] bg-[#161922] p-3"
-            style={{ borderColor: '#232634', backgroundColor: '#161922' }}
-          >
+          <section className="warm-glow flex items-center justify-between gap-2 rounded-xl border bg-[#161922] p-3">
             <div className="flex min-w-0 items-center gap-3">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#232634] text-[#f0c14b]">
                 <Calendar className="h-4 w-4" />
@@ -503,10 +500,7 @@ const HomePage = () => {
             </button>
           </section>
 
-          <section
-            className="relative rounded-2xl border border-[#1f2433] bg-[#111420] p-5 shadow-lg"
-            style={{ borderColor: '#1f2433', backgroundColor: '#111420' }}
-          >
+          <section className="warm-glow relative rounded-2xl border bg-[#111420] p-5 shadow-lg">
             <p className="mb-1 text-[11px] font-medium text-[#838b9e]">
               Available Earnings <span className="mx-1 text-[#f0c14b]">·</span>{' '}
               <span className="text-[#f0c14b]">Starter Tier</span>
@@ -574,10 +568,7 @@ const HomePage = () => {
             </div>
           </section>
 
-          <section
-            className="relative overflow-hidden rounded-2xl border border-[#1f2433] bg-[#111420] p-4 shadow-lg"
-            style={{ borderColor: '#1f2433', backgroundColor: '#111420' }}
-          >
+          <section className="warm-glow relative overflow-hidden rounded-2xl border bg-[#111420] p-4 shadow-lg">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#f0c14b]/20 bg-[#f0c14b]/10 text-[#f0c14b]">
@@ -602,7 +593,7 @@ const HomePage = () => {
               </button>
             </div>
 
-            <div className="mb-4 rounded-xl border border-[#232634] bg-[#0b0d14] p-3">
+            <div className="warm-glow mb-4 rounded-xl border bg-[#0b0d14] p-3">
               <div className="flex items-center justify-between gap-2">
                 <p className="truncate text-[10px] text-[#838b9e]">
                   Select the best product for each brief to claim wages.
@@ -652,10 +643,10 @@ const HomePage = () => {
                       return (
                         <div
                           key={id}
-                          className={`relative z-10 flex items-center justify-between rounded-xl border p-3.5 transition-all duration-300 ${
+                          className={`warm-glow relative z-10 flex items-center justify-between rounded-xl border p-3.5 transition-all duration-300 ${
                             activeHand
                               ? 'border-[#E8B94A] bg-[#0b0d14] shadow-[0_0_12px_rgba(232,185,74,0.18)]'
-                              : 'border-[#232634] bg-[#0b0d14]'
+                              : 'bg-[#0b0d14]'
                           }`}
                         >
                           <div className="min-w-0">
