@@ -422,7 +422,10 @@ const AiRobotPage = () => {
             </header>
 
             <main className="flex-1 space-y-4 px-4 pt-4">
-              <div className="flex items-center justify-between rounded-xl border border-[#232634] bg-[#161922] p-3">
+              <div
+                className="flex items-center justify-between rounded-xl border border-[#232634] bg-[#161922] p-3"
+                style={{ borderColor: '#232634', backgroundColor: '#161922' }}
+              >
                 <div className="flex items-center gap-3">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#232634] text-white">
                     <Calendar className="h-4 w-4" />
@@ -455,7 +458,10 @@ const AiRobotPage = () => {
                 </button>
               </div>
 
-              <section className="rounded-2xl border border-[#1f2433] bg-[#111420] p-5 shadow-lg">
+              <section
+                className="rounded-2xl border border-[#1f2433] bg-[#111420] p-5 shadow-lg"
+                style={{ borderColor: '#1f2433', backgroundColor: '#111420' }}
+              >
                 <div className="mb-5 flex items-start justify-between">
                   <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E8B94A]/10 text-[#E8B94A]">
@@ -512,7 +518,10 @@ const AiRobotPage = () => {
                 ))}
               </div>
 
-              <section className="min-h-[260px] rounded-2xl border border-[#1f2433] bg-[#111420] p-4 shadow-lg">
+              <section
+                className="min-h-[260px] rounded-2xl border border-[#1f2433] bg-[#111420] p-4 shadow-lg"
+                style={{ borderColor: '#1f2433', backgroundColor: '#111420' }}
+              >
                 {activeTab === 'markets' && (
                   <div>
                     <div className="mb-4 flex items-center justify-between">
