@@ -500,7 +500,7 @@ const HomePage = () => {
             </button>
           </section>
 
-          <section className="warm-glow relative rounded-2xl border bg-[#111420] p-5 shadow-lg">
+          <section className="warm-glow relative rounded-2xl border bg-[#111420] p-5">
             <p className="mb-1 text-[11px] font-medium text-[#838b9e]">
               Available Earnings <span className="mx-1 text-[#f0c14b]">·</span>{' '}
               <span className="text-[#f0c14b]">Starter Tier</span>
@@ -568,7 +568,7 @@ const HomePage = () => {
             </div>
           </section>
 
-          <section className="warm-glow relative overflow-hidden rounded-2xl border bg-[#111420] p-4 shadow-lg">
+          <section className="warm-glow relative overflow-hidden rounded-2xl border bg-[#111420] p-4">
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#f0c14b]/20 bg-[#f0c14b]/10 text-[#f0c14b]">
@@ -645,7 +645,7 @@ const HomePage = () => {
                           key={id}
                           className={`warm-glow relative z-10 flex items-center justify-between rounded-xl border p-3.5 transition-all duration-300 ${
                             activeHand
-                              ? 'border-[#E8B94A] bg-[#0b0d14] shadow-[0_0_12px_rgba(232,185,74,0.18)]'
+                              ? 'border-[#E8B94A] bg-[#0b0d14]'
                               : 'bg-[#0b0d14]'
                           }`}
                         >
