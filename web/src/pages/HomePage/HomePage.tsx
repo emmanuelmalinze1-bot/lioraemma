@@ -629,9 +629,11 @@ const HomePage = () => {
                           <div className="relative ml-3 shrink-0">
                             {showHand && (
                               <div className="pointer-events-none absolute right-full top-1/2 z-30 -translate-y-1/2">
-                                <div className="hand-tap relative h-8 w-8">
+                                <div className="hand-tap relative flex h-10 w-10 items-center justify-center rounded-xl border border-[#E8B94A]/70 bg-[#0b0d14]/50">
                                   <span className="absolute -inset-1.5 rounded-full bg-[#F3C75A]/35 blur-[7px]" />
-                                  <PointingHand />
+                                  <div className="relative h-8 w-8">
+                                    <PointingHand />
+                                  </div>
                                 </div>
                               </div>
                             )}
