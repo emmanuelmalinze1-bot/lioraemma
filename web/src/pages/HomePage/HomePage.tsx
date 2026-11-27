@@ -265,7 +265,7 @@ const HomePage = () => {
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const taskListRef = useRef<HTMLDivElement | null>(null)
-  const startRefs = useRef<Array<HTMLButtonElement | null>>([])
+  const rowRefs = useRef<Array<HTMLDivElement | null>>([])
 
   const showToast = useCallback((message: string) => {
     setToast(message)
@@ -326,16 +326,16 @@ const HomePage = () => {
 
   useEffect(() => {
     const update = () => {
-      const button = startRefs.current[handIndex]
+      const row = rowRefs.current[handIndex]
       const list = taskListRef.current
-      if (!button || !list) {
+      if (!row || !list) {
         return
       }
-      const buttonRect = button.getBoundingClientRect()
+      const rowRect = row.getBoundingClientRect()
       const listRect = list.getBoundingClientRect()
       setHandPos({
-        top: buttonRect.top - listRect.top + buttonRect.height / 2,
-        left: buttonRect.left - listRect.left - 16,
+        top: rowRect.top - listRect.top + rowRect.height / 2,
+        left: rowRect.left - listRect.left + 6,
       })
     }
 
@@ -347,7 +347,7 @@ const HomePage = () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', update)
     }
-  }, [handIndex])
+  }, [handIndex, completedTasks])
 
   const handleWithdraw = () => {
     playClaimSound()
@@ -628,10 +628,11 @@ const HomePage = () => {
                 <div ref={taskListRef} className="relative">
                   {handPos && firstActiveTaskIndex >= 0 && (
                     <div
-                      className="pointer-events-none absolute z-30 -translate-x-1/2 -translate-y-1/2 transition-[top,left] duration-500 ease-out"
+                      className="pointer-events-none absolute z-30 -translate-x-1/2 -translate-y-1/2 transition-[top,left] duration-300 ease-out"
                       style={{ top: handPos.top, left: handPos.left }}
                     >
-                      <div className="hand-tap h-8 w-8">
+                      <div className="hand-tap relative h-8 w-8">
+                        <span className="absolute -inset-1.5 rounded-full bg-[#F3C75A]/30 blur-[7px]" />
                         <PointingHand />
                       </div>
                     </div>
@@ -644,9 +645,12 @@ const HomePage = () => {
                       return (
                         <div
                           key={id}
+                          ref={(el) => {
+                            rowRefs.current[index] = el
+                          }}
                           className={`warm-glow relative z-10 flex items-center justify-between rounded-xl border p-3.5 transition-all duration-300 ${
                             activeHand
-                              ? 'border-[#E8B94A] bg-[#0b0d14]'
+                              ? 'border-[#E8B94A] bg-[#0b0d14] shadow-[0_0_16px_rgba(232,185,74,0.16)]'
                               : 'bg-[#0b0d14]'
                           }`}
                         >
@@ -670,9 +674,6 @@ const HomePage = () => {
                           <div className="relative ml-3 shrink-0">
                             <button
                               type="button"
-                              ref={(el) => {
-                                startRefs.current[index] = el
-                              }}
                               onClick={() => handleTask(id)}
                               disabled={completed}
                               className={`flex items-center gap-1 rounded-lg px-4 py-2 text-[12px] font-bold transition-all ${
