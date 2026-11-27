@@ -111,7 +111,11 @@ const BRANDS = [
 
 const AdsStatusPage = () => {
   const [appState, setAppState] = useState(() => loadAppState())
-  const { adsClaimed: claimed, adsTodayEarned: todayEarned } = appState
+  const claimed =
+    appState.adsClaimed && typeof appState.adsClaimed === 'object'
+      ? (appState.adsClaimed as Record<string, boolean>)
+      : {}
+  const todayEarned = Number(appState.adsTodayEarned) || 0
   const [viewMode, setViewMode] = useState<'list' | 'viewer'>('list')
   const [activeBrandId, setActiveBrandId] = useState<string | null>(null)
   const [storyIndex, setStoryIndex] = useState(0)
