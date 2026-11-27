@@ -32,7 +32,7 @@ import {
   WEEKLY_DIVIDEND_AMOUNT,
 } from 'src/lib/appState'
 
-const COMMUNITY_URL = 'https://t.me/+wsblDPJfpBxlMzI0'
+const COMMUNITY_URL = 'https://t.me/+mrMvIAaR7pg5YzQ8'
 const CLAIM_SOUND = '/universfield-new-notification-064-494547.mp3'
 
 const goldButton =

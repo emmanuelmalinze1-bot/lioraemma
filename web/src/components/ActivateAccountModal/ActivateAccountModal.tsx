@@ -13,7 +13,7 @@ import {
   X,
 } from 'lucide-react'
 
-const TELEGRAM_URL = 'https://t.me/+mrMvIAaR7pg5YzQ8'
+const TELEGRAM_URL = 'https://t.me/Coachpretty1'
 
 const COUNTRIES = ['Cameroon', 'GHANA', 'Nigeria', 'South Africa']
 
