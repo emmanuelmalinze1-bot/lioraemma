@@ -969,12 +969,15 @@ const HomePage = () => {
                 <Users className="h-7 w-7" />
               </div>
 
-              <h3 className="mt-4 text-center font-serif text-xl font-bold text-white">
+              <p className="mt-4 text-center text-[10px] font-bold uppercase tracking-[0.25em] text-[#f0c14b]">
+                Liora Member Network
+              </p>
+              <h3 className="mt-1.5 text-center font-serif text-xl font-bold text-white">
                 Join Official Community
               </h3>
               <p className="mt-2 text-center text-[12px] leading-relaxed text-[#838b9e]">
-                Connect with other members, get payout updates, and receive
-                support from the Liora team.
+                Connect with active members for instant task drop alerts, AI
+                trading insights, and verified payout notices.
               </p>
 
               <a
@@ -984,8 +987,20 @@ const HomePage = () => {
                 className={`mt-5 flex w-full items-center justify-center gap-2 rounded-xl py-3 text-[13px] font-bold ${goldButton}`}
               >
                 <Send className="h-4 w-4" />
-                Join Telegram Channel
+                Join Community Now
               </a>
+              <button
+                type="button"
+                onClick={() => setCommunityOpen(false)}
+                className="mt-2.5 w-full rounded-xl border border-[#2a3040] bg-[#1a1e29] py-2.5 text-[12px] font-semibold text-white/80 transition hover:bg-[#202534]"
+              >
+                Maybe later
+              </button>
+
+              <div className="mt-4 flex items-center justify-center gap-1.5 text-[10px] font-medium text-[#838b9e]">
+                <ShieldCheck className="h-3.5 w-3.5 text-[#10b981]" />
+                Verified Liora dispatch channel
+              </div>
             </div>
           </div>
         )}
