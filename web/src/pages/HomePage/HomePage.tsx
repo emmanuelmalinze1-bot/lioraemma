@@ -641,15 +641,10 @@ const HomePage = () => {
                   <div className="space-y-2">
                     {TASKS.map(({ id, name, amount }, index) => {
                       const completed = completedTasks.includes(id)
-                      const activeHand = !completed && index === handIndex
                       return (
                         <div
                           key={id}
-                          className={`warm-glow relative z-10 flex items-center justify-between rounded-xl border p-3.5 transition-all duration-300 ${
-                            activeHand
-                              ? 'border-[#E8B94A] bg-[#0b0d14] shadow-[0_0_16px_rgba(232,185,74,0.16)]'
-                              : 'bg-[#0b0d14]'
-                          }`}
+                          className="warm-glow relative z-10 flex items-center justify-between rounded-xl border bg-[#0b0d14] p-3.5 transition-all duration-300"
                         >
                           <div className="min-w-0">
                             <p className="mb-1 truncate text-[13px] font-bold text-white">
