@@ -22,6 +22,7 @@ import {
 import { Link } from '@redwoodjs/router'
 
 import ActivateAccountModal from 'src/components/ActivateAccountModal/ActivateAccountModal'
+import WithdrawalModal from 'src/components/WithdrawalModal/WithdrawalModal'
 import {
   formatDividendDate,
   getDividendStatus,
@@ -242,6 +243,7 @@ const HomePage = () => {
   const [toast, setToast] = useState('')
   const [communityOpen, setCommunityOpen] = useState(true)
   const [activateOpen, setActivateOpen] = useState(false)
+  const [withdrawOpen, setWithdrawOpen] = useState(false)
   const [taskView, setTaskView] = useState<'list' | 'brief' | 'success'>('list')
   const [activeTaskId, setActiveTaskId] = useState<string | null>(null)
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null)
@@ -339,8 +341,19 @@ const HomePage = () => {
   }, [taskView, completedTasks, firstActiveTaskIndex])
 
   const handleWithdraw = () => {
+    setWithdrawOpen(true)
+  }
+
+  const handleWithdrawalSubmit = (amount: number) => {
+    const next = {
+      ...appState,
+      balance: Math.max(0, appState.balance - amount),
+    }
+    saveAppState(next)
+    setAppState(next)
+    setWithdrawOpen(false)
     playClaimSound()
-    showToast('Withdrawal request submitted')
+    showToast(`Withdrawal request of ₦${amount.toLocaleString()} submitted`)
   }
 
   const handleClaim = () => {
@@ -990,6 +1003,13 @@ const HomePage = () => {
             </div>
           </div>
         )}
+
+        <WithdrawalModal
+          open={withdrawOpen}
+          onClose={() => setWithdrawOpen(false)}
+          balance={balance}
+          onWithdraw={handleWithdrawalSubmit}
+        />
       </div>
     </div>
   )
