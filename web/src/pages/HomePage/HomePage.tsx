@@ -992,7 +992,7 @@ const HomePage = () => {
               <button
                 type="button"
                 onClick={() => setCommunityOpen(false)}
-                className="mt-2.5 w-full rounded-xl border border-[#2a3040] bg-[#1a1e29] py-2.5 text-[12px] font-semibold text-white/80 transition hover:bg-[#202534]"
+                className="mt-3 w-full text-center text-[12px] font-semibold text-[#838b9e] transition hover:text-white"
               >
                 Maybe later
               </button>
