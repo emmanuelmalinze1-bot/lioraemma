@@ -1,0 +1,196 @@
+/**
+ * START --- SETUP TAILWINDCSS EDIT
+ *
+ * `yarn rw setup ui tailwindcss` placed these directives here
+ * to inject Tailwind's styles into your CSS.
+ * For more information, see: https://tailwindcss.com/docs/installation
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/**
+ * END --- SETUP TAILWINDCSS EDIT
+ */
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-ink font-sans text-white antialiased;
+  }
+}
+
+@layer components {
+  /* Subtle diagonal crosshatch pattern seen across every Liora screen */
+  .bg-crosshatch {
+    background-color: #0a0e17;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.02) 2px,
+      rgba(255, 255, 255, 0.02) 4px
+    );
+  }
+}
+
+/* Rotating 3D block puzzle used in the welcome hero */
+.puzzle-scene {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  perspective: 1200px;
+}
+
+.puzzle {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  animation: puzzle-spin 60s linear infinite;
+}
+
+.cubie {
+  position: absolute;
+  top: -22px;
+  left: -22px;
+  width: 44px;
+  height: 44px;
+  transform-style: preserve-3d;
+  transition: transform 1800ms cubic-bezier(0.65, 0, 0.35, 1);
+  will-change: transform;
+}
+
+/* Snap straight to the settled position once a layer turn completes */
+.puzzle.snap .cubie {
+  transition: none;
+}
+
+.cubie-face {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid rgba(229, 184, 77, 0.32);
+  background: linear-gradient(135deg, rgba(229, 184, 77, 0.16), rgba(13, 17, 28, 0.96));
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.6);
+}
+
+.cubie-face.front {
+  transform: translateZ(22px);
+}
+
+.cubie-face.back {
+  transform: rotateY(180deg) translateZ(22px);
+}
+
+.cubie-face.right {
+  transform: rotateY(90deg) translateZ(22px);
+}
+
+.cubie-face.left {
+  transform: rotateY(-90deg) translateZ(22px);
+}
+
+.cubie-face.top {
+  transform: rotateX(90deg) translateZ(22px);
+}
+
+.cubie-face.bottom {
+  transform: rotateX(-90deg) translateZ(22px);
+}
+
+.cubie.gold .cubie-face {
+  background: linear-gradient(135deg, rgba(229, 184, 77, 0.95), rgba(212, 167, 62, 0.7));
+  border-color: rgba(229, 184, 77, 0.95);
+  box-shadow:
+    0 0 16px rgba(229, 184, 77, 0.35),
+    inset 0 0 12px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes puzzle-spin {
+  from {
+    transform: rotateX(-24deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-24deg) rotateY(360deg);
+  }
+}
+
+/* Payout rails marquee */
+.marquee-track {
+  animation: marquee 42s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pointing finger that steps through each product task */
+@keyframes hand-tap {
+  0%,
+  100% {
+    transform: rotate(90deg) scale(1);
+  }
+  50% {
+    transform: rotate(84deg) scale(0.92);
+  }
+}
+
+.hand-tap {
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.9))
+    drop-shadow(0 3px 5px rgba(0, 0, 0, 0.55));
+  animation: hand-tap 1.1s ease-in-out infinite;
+}
+
+
+/* Hide scrollbar for horizontal status strip */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Soft entrance for toasts and the community card */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fade-in 180ms ease-out;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.toast-in {
+  animation: toast-in 200ms ease-out;
+}
