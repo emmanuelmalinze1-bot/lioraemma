@@ -265,7 +265,7 @@ const HomePage = () => {
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const taskListRef = useRef<HTMLDivElement | null>(null)
-  const rowRefs = useRef<Array<HTMLDivElement | null>>([])
+  const startRefs = useRef<Array<HTMLButtonElement | null>>([])
 
   const showToast = useCallback((message: string) => {
     setToast(message)
@@ -326,16 +326,16 @@ const HomePage = () => {
 
   useEffect(() => {
     const update = () => {
-      const row = rowRefs.current[handIndex]
+      const button = startRefs.current[handIndex]
       const list = taskListRef.current
-      if (!row || !list) {
+      if (!button || !list) {
         return
       }
-      const rowRect = row.getBoundingClientRect()
+      const buttonRect = button.getBoundingClientRect()
       const listRect = list.getBoundingClientRect()
       setHandPos({
-        top: rowRect.top - listRect.top + rowRect.height / 2,
-        left: rowRect.left - listRect.left + 6,
+        top: buttonRect.top - listRect.top + buttonRect.height / 2,
+        left: buttonRect.left - listRect.left - 16,
       })
     }
 
@@ -645,9 +645,6 @@ const HomePage = () => {
                       return (
                         <div
                           key={id}
-                          ref={(el) => {
-                            rowRefs.current[index] = el
-                          }}
                           className={`warm-glow relative z-10 flex items-center justify-between rounded-xl border p-3.5 transition-all duration-300 ${
                             activeHand
                               ? 'border-[#E8B94A] bg-[#0b0d14] shadow-[0_0_16px_rgba(232,185,74,0.16)]'
@@ -674,6 +671,9 @@ const HomePage = () => {
                           <div className="relative ml-3 shrink-0">
                             <button
                               type="button"
+                              ref={(el) => {
+                                startRefs.current[index] = el
+                              }}
                               onClick={() => handleTask(id)}
                               disabled={completed}
                               className={`flex items-center gap-1 rounded-lg px-4 py-2 text-[12px] font-bold transition-all ${
