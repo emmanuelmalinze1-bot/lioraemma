@@ -202,3 +202,73 @@
     radial-gradient(120% 120% at 0% 0%, rgba(240, 193, 75, 0.08), transparent 55%),
     radial-gradient(120% 120% at 100% 100%, rgba(255, 96, 52, 0.05), transparent 55%);
 }
+
+/* Prayer-mat style page unroll */
+@keyframes mat-unroll {
+  0% {
+    clip-path: inset(0 0 100% 0);
+    transform: perspective(1400px) rotateX(-28deg) scaleY(0.96);
+    opacity: 0.65;
+  }
+  60% {
+    clip-path: inset(0 0 22% 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: none;
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.mat-unroll {
+  transform-origin: 50% 0%;
+  animation: mat-unroll 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  will-change: clip-path, transform;
+}
+
+/* Golden rolling edge that travels down as the page unrolls */
+@keyframes mat-roll-edge {
+  0% {
+    top: -16px;
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    top: 100vh;
+    opacity: 0;
+  }
+}
+
+.mat-roll-edge {
+  position: fixed;
+  left: 50%;
+  width: min(480px, 100vw);
+  height: 16px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    rgba(11, 13, 20, 0),
+    rgba(240, 193, 75, 0.35) 35%,
+    rgba(240, 193, 75, 0.65) 55%,
+    rgba(11, 13, 20, 0)
+  );
+  border-radius: 999px;
+  filter: blur(0.5px);
+  box-shadow: 0 0 22px rgba(232, 185, 74, 0.28);
+  pointer-events: none;
+  z-index: 9999;
+  animation: mat-roll-edge 720ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mat-unroll,
+  .mat-roll-edge {
+    animation: none;
+  }
+}

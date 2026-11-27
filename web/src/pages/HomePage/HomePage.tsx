@@ -427,7 +427,8 @@ const HomePage = () => {
 
   return (
     <div className="flex min-h-screen justify-center bg-[#050608]">
-      <div className="bg-crosshatch relative flex min-h-screen w-full max-w-[480px] flex-col bg-[#0b0d14] pb-28 shadow-[0_0_60px_rgba(0,0,0,0.85)]">
+      <div className="mat-roll-edge" aria-hidden />
+      <div className="mat-unroll bg-crosshatch relative flex min-h-screen w-full max-w-[480px] flex-col bg-[#0b0d14] pb-28 shadow-[0_0_60px_rgba(0,0,0,0.85)]">
         <header className="sticky top-0 z-40 flex items-center justify-between border-b border-white/5 bg-[#0b0d14]/95 px-4 py-3 backdrop-blur-md">
           <div className="flex items-center gap-1">
             <Link
