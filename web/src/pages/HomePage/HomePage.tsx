@@ -603,11 +603,14 @@ const HomePage = () => {
                       return (
                         <div
                           key={id}
-                          className={`warm-glow relative z-10 flex items-center justify-between rounded-xl bg-[#0b0d14] p-3.5 transition-all duration-300 ${
+                          className={`warm-glow relative z-10 flex items-center justify-between rounded-xl border bg-[#0b0d14] p-3.5 transition-all duration-300 ${
                             showHand
-                              ? 'shadow-[0_0_18px_rgba(232,185,74,0.16)]'
+                              ? 'shadow-[0_0_18px_rgba(232,185,74,0.18)]'
                               : ''
                           }`}
+                          style={{
+                            borderColor: showHand ? '#E8B94A' : 'transparent',
+                          }}
                         >
                           <div className="min-w-0">
                             <p className="mb-1 truncate text-[13px] font-bold text-white">
@@ -629,11 +632,9 @@ const HomePage = () => {
                           <div className="relative ml-3 shrink-0">
                             {showHand && (
                               <div className="pointer-events-none absolute right-full top-1/2 z-30 -translate-y-1/2">
-                                <div className="hand-tap relative flex h-10 w-10 items-center justify-center rounded-xl border border-[#E8B94A]/70 bg-[#0b0d14]/50">
+                                <div className="hand-tap relative h-8 w-8">
                                   <span className="absolute -inset-1.5 rounded-full bg-[#F3C75A]/35 blur-[7px]" />
-                                  <div className="relative h-8 w-8">
-                                    <PointingHand />
-                                  </div>
+                                  <PointingHand />
                                 </div>
                               </div>
                             )}
