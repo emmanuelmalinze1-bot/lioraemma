@@ -1,0 +1,6 @@
+{
+  "installCommand": "npm i -g corepack@latest && corepack enable && yarn install",
+  "buildCommand": "yarn rw build web",
+  "outputDirectory": "web/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
