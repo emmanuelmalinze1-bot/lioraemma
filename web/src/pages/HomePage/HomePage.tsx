@@ -267,7 +267,10 @@ const HomePage = () => {
     if (toastTimer.current) {
       clearTimeout(toastTimer.current)
     }
-    toastTimer.current = setTimeout(() => setToast(''), 2600)
+    toastTimer.current = setTimeout(
+      () => setToast(''),
+      message.length > 60 ? 5000 : 2600
+    )
   }, [])
 
   useEffect(
@@ -826,10 +829,15 @@ const HomePage = () => {
         </nav>
 
         {toast && (
-          <div className="fade-in fixed bottom-24 left-1/2 z-[60] flex -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-full border border-[#2f6b45] bg-[#0f2418] px-4 py-2 text-[11px] font-medium text-[#86efac] shadow-[0_8px_24px_rgba(0,0,0,0.5)]">
-            <CircleCheck className="h-4 w-4" />
-            {toast}
-          </div>
+          <button
+            type="button"
+            onClick={() => setToast('')}
+            aria-label="Dismiss notification"
+            className="fade-in fixed left-1/2 top-3 z-[70] flex w-[calc(100%-1.5rem)] max-w-[420px] -translate-x-1/2 items-start gap-2 rounded-2xl border border-[#2f6b45] bg-[#0f2418] px-4 py-3 text-left text-[12px] font-medium leading-relaxed text-[#86efac] shadow-[0_8px_24px_rgba(0,0,0,0.6)]"
+          >
+            <CircleCheck className="mt-0.5 h-4 w-4 shrink-0" />
+            <span className="flex-1">{toast}</span>
+          </button>
         )}
 
         {showConfirm && (
