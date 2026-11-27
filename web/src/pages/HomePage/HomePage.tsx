@@ -540,7 +540,7 @@ const HomePage = () => {
               </div>
             </div>
 
-            <div className="mt-5 flex items-start gap-3 rounded-xl border border-[#232634] bg-[#0b0d14] p-3">
+            <div className="mt-5 flex items-start gap-3 border-t border-[#232634] bg-[#0b0d14] pt-4">
               <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#10b981]/20 bg-[#10b981]/10 text-[#10b981]">
                 <Waypoints className="h-4 w-4" />
               </span>
