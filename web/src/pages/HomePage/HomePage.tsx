@@ -260,15 +260,31 @@ const HomePage = () => {
     product: string
   } | null>(null)
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const toastRef = useRef('')
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
+  const dismissToast = useCallback(() => {
+    toastRef.current = ''
+    setToast('')
+    if (toastTimer.current) {
+      clearTimeout(toastTimer.current)
+      toastTimer.current = null
+    }
+  }, [])
+
   const showToast = useCallback((message: string) => {
+    if (toastRef.current === message) return
+    toastRef.current = message
     setToast(message)
     if (toastTimer.current) {
       clearTimeout(toastTimer.current)
     }
     toastTimer.current = setTimeout(
-      () => setToast(''),
+      () => {
+        toastRef.current = ''
+        setToast('')
+        toastTimer.current = null
+      },
       message.length > 60 ? 5000 : 2600
     )
   }, [])
@@ -831,7 +847,7 @@ const HomePage = () => {
         {toast && (
           <button
             type="button"
-            onClick={() => setToast('')}
+            onClick={dismissToast}
             aria-label="Dismiss notification"
             className="fade-in fixed left-1/2 top-3 z-[70] flex w-[calc(100%-1.5rem)] max-w-[420px] -translate-x-1/2 items-start gap-2 rounded-2xl border border-[#2f6b45] bg-[#0f2418] px-4 py-3 text-left text-[12px] font-medium leading-relaxed text-[#86efac] shadow-[0_8px_24px_rgba(0,0,0,0.6)]"
           >
