@@ -389,7 +389,6 @@ const AiRobotPage = () => {
 
   return (
     <div className="flex min-h-screen justify-center bg-[#070a10]">
-      <div className="mat-roll-edge" aria-hidden />
       <div className="bg-crosshatch relative flex min-h-screen w-full max-w-[480px] flex-col overflow-x-hidden pb-28">
         {view === 'dashboard' ? (
           <>
