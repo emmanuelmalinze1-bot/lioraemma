@@ -239,9 +239,6 @@ const PointingHand = () => (
 const HomePage = () => {
   const [tickerIndex, setTickerIndex] = useState(0)
   const [handIndex, setHandIndex] = useState(0)
-  const [handPos, setHandPos] = useState<{ top: number; left: number } | null>(
-    null
-  )
   const [toast, setToast] = useState('')
   const [communityOpen, setCommunityOpen] = useState(true)
   const [activateOpen, setActivateOpen] = useState(false)
@@ -264,8 +261,6 @@ const HomePage = () => {
   } | null>(null)
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
-  const taskListRef = useRef<HTMLDivElement | null>(null)
-  const startRefs = useRef<Array<HTMLButtonElement | null>>([])
 
   const showToast = useCallback((message: string) => {
     setToast(message)
@@ -323,31 +318,6 @@ const HomePage = () => {
     }, 1600)
     return () => clearInterval(id)
   }, [taskView, completedTasks, firstActiveTaskIndex])
-
-  useEffect(() => {
-    const update = () => {
-      const button = startRefs.current[handIndex]
-      const list = taskListRef.current
-      if (!button || !list) {
-        return
-      }
-      const buttonRect = button.getBoundingClientRect()
-      const listRect = list.getBoundingClientRect()
-      setHandPos({
-        top: buttonRect.top - listRect.top + buttonRect.height / 2,
-        left: buttonRect.left - listRect.left - 16,
-      })
-    }
-
-    update()
-    const raf = requestAnimationFrame(update)
-    window.addEventListener('resize', update)
-
-    return () => {
-      cancelAnimationFrame(raf)
-      window.removeEventListener('resize', update)
-    }
-  }, [handIndex, completedTasks])
 
   const handleWithdraw = () => {
     playClaimSound()
@@ -625,26 +595,19 @@ const HomePage = () => {
                   </span>
                 </div>
 
-                <div ref={taskListRef} className="relative">
-                  {handPos && firstActiveTaskIndex >= 0 && (
-                    <div
-                      className="pointer-events-none absolute z-30 -translate-x-1/2 -translate-y-1/2 transition-[top,left] duration-300 ease-out"
-                      style={{ top: handPos.top, left: handPos.left }}
-                    >
-                      <div className="hand-tap relative h-8 w-8">
-                        <span className="absolute -inset-1.5 rounded-full bg-[#F3C75A]/30 blur-[7px]" />
-                        <PointingHand />
-                      </div>
-                    </div>
-                  )}
-
+                <div className="relative">
                   <div className="space-y-2">
                     {TASKS.map(({ id, name, amount }, index) => {
                       const completed = completedTasks.includes(id)
+                      const showHand = !completed && index === handIndex
                       return (
                         <div
                           key={id}
-                          className="warm-glow relative z-10 flex items-center justify-between rounded-xl border bg-[#0b0d14] p-3.5 transition-all duration-300"
+                          className={`warm-glow relative z-10 flex items-center justify-between rounded-xl border bg-[#0b0d14] p-3.5 transition-all duration-300 ${
+                            showHand
+                              ? 'shadow-[0_0_18px_rgba(232,185,74,0.16)]'
+                              : ''
+                          }`}
                         >
                           <div className="min-w-0">
                             <p className="mb-1 truncate text-[13px] font-bold text-white">
@@ -664,11 +627,16 @@ const HomePage = () => {
                           </div>
 
                           <div className="relative ml-3 shrink-0">
+                            {showHand && (
+                              <div className="pointer-events-none absolute right-full top-1/2 z-30 -translate-y-1/2">
+                                <div className="hand-tap relative h-8 w-8">
+                                  <span className="absolute -inset-1.5 rounded-full bg-[#F3C75A]/35 blur-[7px]" />
+                                  <PointingHand />
+                                </div>
+                              </div>
+                            )}
                             <button
                               type="button"
-                              ref={(el) => {
-                                startRefs.current[index] = el
-                              }}
                               onClick={() => handleTask(id)}
                               disabled={completed}
                               className={`flex items-center gap-1 rounded-lg px-4 py-2 text-[12px] font-bold transition-all ${
