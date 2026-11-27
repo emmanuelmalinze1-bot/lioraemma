@@ -965,23 +965,24 @@ const HomePage = () => {
                 <X className="h-4 w-4" />
               </button>
 
-              <div className="flex items-start gap-2.5">
+              <div className="flex items-center gap-2.5">
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#f0c14b]/40 bg-gradient-to-b from-[#2a230e] to-[#14100a] text-[#f0c14b] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]">
                   <Users className="h-6 w-6" />
                 </div>
-                <div className="min-w-0 flex-1">
+                <span className="min-w-0">
                   <span className="block text-left text-[9px] font-bold uppercase tracking-[0.2em] text-[#f0c14b]">
                     Liora Member Network
                   </span>
                   <span className="mt-0.5 block text-left font-serif text-lg font-bold text-white">
                     Join Official Community
                   </span>
-                  <p className="mt-2 text-left text-[12px] leading-relaxed text-[#838b9e]">
-                    Connect with active members for instant task drop alerts, AI
-                    trading insights, and verified payout notices.
-                  </p>
-                </div>
+                </span>
               </div>
+
+              <p className="mt-4 text-left text-[12px] leading-relaxed text-[#838b9e]">
+                Connect with active members for instant task drop alerts, AI
+                trading insights, and verified payout notices.
+              </p>
 
               <a
                 href={COMMUNITY_URL}
