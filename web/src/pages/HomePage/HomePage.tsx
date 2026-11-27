@@ -603,7 +603,7 @@ const HomePage = () => {
                       return (
                         <div
                           key={id}
-                          className={`warm-glow relative z-10 flex items-center justify-between rounded-xl border bg-[#0b0d14] p-3.5 transition-all duration-300 ${
+                          className={`warm-glow relative z-10 flex items-center justify-between rounded-xl bg-[#0b0d14] p-3.5 transition-all duration-300 ${
                             showHand
                               ? 'shadow-[0_0_18px_rgba(232,185,74,0.16)]'
                               : ''
